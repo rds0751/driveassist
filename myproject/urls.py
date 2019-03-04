@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^contact/', include('contact.urls', namespace='contact')),
     url(r'^blog/', include('blog.urls', namespace='blog')),
     url(r'', include('core.urls', namespace='core')),
-    url(r'^unipoles/', include('cities.urls', namespace='cities')),
+    url(r'^cities/', include('cities.urls', namespace='cities')),
 ]
 
 if settings.DEBUG:

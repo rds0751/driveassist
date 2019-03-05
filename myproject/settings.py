@@ -170,5 +170,5 @@ import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://wjbhrqpesukcwq:5c128d4168393335a2fcb7cd60bbeeae704d224d1d8a39dbf9c3cac40b8fabb1@ec2-23-21-244-254.compute-1.amazonaws.com:5432/d62pigdi31s37h',
+        default='postgres://uuzfqjjtjczuyf:c19a86046cafeaaa23a283b889c98a486fa5c6e02ab3bb923f69e3918f408613@ec2-54-83-55-115.compute-1.amazonaws.com:5432/d2kuqdg02m6cv8',
         conn_max_age=600)}

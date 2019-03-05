@@ -4,7 +4,7 @@ from smtplib import SMTPException
 
 from django import forms
 from django.core.mail import EmailMessage
-from .models import Contact
+from .models import Contact, Book
 
 
 class ContactForm(forms.ModelForm):
@@ -13,18 +13,18 @@ class ContactForm(forms.ModelForm):
         required=True,
         widget=forms.TextInput(attrs={'type': "text", 'class': "form-control", 'placeholder': "Name *", 'required': ""}),
     )
-    phone = forms.CharField(
+    city = forms.CharField(
         required=True,
-        widget=forms.TextInput(attrs={'type': "text", 'class': "form-control", 'placeholder': "Phone Number *", 'required': ""}),
+        widget=forms.TextInput(attrs={'type': "text", 'class': "form-control", 'placeholder': "City *", 'required': ""}),
     )
-    subject = forms.CharField(
+    state = forms.CharField(
         max_length=100,
         required=True,
-        widget=forms.TextInput(attrs={'type': "text", 'class': "form-control", 'placeholder': "Subject *", 'required': ""}),
+        widget=forms.TextInput(attrs={'type': "text", 'class': "form-control", 'placeholder': "State *", 'required': ""}),
     )
-    message = forms.CharField(
+    comment = forms.CharField(
         required=True,
-        widget=forms.Textarea(attrs={'type': "text", 'class': "form-control", 'placeholder': "Message *", 'required': ""}),
+        widget=forms.Textarea(attrs={'type': "text", 'class': "form-control", 'placeholder': "Comment On Uniploe Location *", 'required': ""}),
     )
     latitude = forms.CharField(
         required=True,
@@ -35,22 +35,28 @@ class ContactForm(forms.ModelForm):
 
     class Meta:
         model = Contact
-        fields = ('name', 'phone', 'subject', 'message', 'latitude', 'longitude',)
+        fields = ('name', 'city', 'state', 'comment', 'latitude', 'longitude',)
 
-    def clean_subject(self):
-        subject = ''.join(self.cleaned_data['subject'].splitlines())
-        return subject
+class BookForm(forms.ModelForm):
+    name = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(attrs={'type': "text", 'class': "form-control", 'placeholder': "Name of Unipole Location*", 'required': ""}),
+    )
+    phone = forms.CharField(
+        required=True,
+        widget=forms.TextInput(attrs={'type': "text", 'class': "form-control", 'placeholder': "Phone Number*", 'required': ""}),
+    )
+    price = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(attrs={'type': "text", 'class': "form-control", 'placeholder': "Price*", 'required': ""}),
+    )
+    comment = forms.CharField(
+        required=True,
+        widget=forms.Textarea(attrs={'type': "text", 'class': "form-control", 'placeholder': "Any Specific Requirements", 'required': ""}),
+    )
 
-    def send_email(self):
-        email = EmailMessage(
-            self.cleaned_data['subject'],
-            self.cleaned_data['message'],
-            '',
-            ['admin@example.com'],
-            reply_to=['{name} <{phone}>'.format(**self.cleaned_data)],
-        )
-        try:
-            email.send()
-            return True
-        except SMTPException:
-            return False
+    class Meta:
+        model = Contact
+        fields = ('name', 'phone', 'price', 'comment',)

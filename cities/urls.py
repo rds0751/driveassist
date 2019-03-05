@@ -2,9 +2,10 @@
 
 from django.conf.urls import url
 
-from .views import ContactView, contacts
+from .views import ContactView, contacts, BookView
 
 urlpatterns = [
-    url(r'^$', ContactView.as_view(), name='contact'),
-    url(r'^contacts-list/', contacts, name='contacts'),
+    url(r'^fill-new-location/$', ContactView.as_view(), name='city'),
+    url(r'^unipoles/', contacts, name='cities'),
+    url(r'^bid-now/', BookView.as_view(), name='book'),
 ]

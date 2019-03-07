@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'core',
     'contact',
     'blog',
-    'cities',
     'django_tables2',
 ]
 

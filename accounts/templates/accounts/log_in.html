@@ -1,0 +1,50 @@
+{% extends 'base1.html' %}
+
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+
+        <section class="know-more">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 margin30">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe src="http://player.vimeo.com/video/133170635" width="640" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 margin30">
+        <!--know more section end-->
+
+    <h3>{% trans 'Log in' %}</h3>
+
+    <form method="post">
+
+        {% csrf_token %}
+        {% bootstrap_form form %}
+
+        <button class="btn btn-primary">{% trans 'Log in' %}</button>
+
+    </form>
+
+    <hr>
+
+    <ul>
+        <li>
+            <a href="{% url 'accounts:restore_password' %}">{% trans 'Forgot your password?' %}</a>
+        </li>
+        <li>
+            <a href="{% url 'accounts:remind_username' %}">{% trans 'Forgot your username?' %}</a>
+        </li>
+        <li>
+            <a href="{% url 'accounts:resend_activation_code' %}">{% trans 'Resend an activation code' %}</a>
+        </li>
+    </ul>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+{% endblock %}

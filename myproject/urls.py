@@ -27,6 +27,8 @@ urlpatterns = [
     url(r'^contact/', include('contact.urls', namespace='contact')),
     url(r'^blog/', include('blog.urls', namespace='blog')),
     url(r'', include('core.urls', namespace='core')),
+    url(r'^accounts/', include('accounts.urls')),
+    url(r'^book/', include('cities.urls', namespace='city')),
 ]
 
 if settings.DEBUG:

@@ -23,5 +23,4 @@ urlpatterns = [
     url(r'^client$', views.client, name='client'),
     url(r'^why$', views.why, name='why'),
     url(r'^career$', views.career, name='career'),
-    url(r'^book', views.book, name='book')
 ]

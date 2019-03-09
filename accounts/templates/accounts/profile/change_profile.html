@@ -1,0 +1,43 @@
+{% extends 'base1.html' %}
+
+{% load bootstrap4 %}
+{% load i18n %}
+
+{% block content %}
+<section class="know-more">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 margin30">
+                        <div class="embed-responsive embed-responsive-16by9">
+                            <iframe src="http://player.vimeo.com/video/133170635" width="640" height="480" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 margin30">
+
+
+
+
+
+ 
+    <h4>{% trans 'Change profile' %}</h4>
+
+    <form method="post">
+
+        {% csrf_token %}
+        {% bootstrap_form form %}
+
+        <button class="btn btn-success">{% trans 'Change' %}</button>
+
+    </form>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+{% endblock %}

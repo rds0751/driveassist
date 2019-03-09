@@ -1,0 +1,116 @@
+{% extends "base1.html" %}
+{% block meta %}
+    <meta name="title" content="">
+    <meta name="description" content="">
+    <meta charset="keywords" content="">
+    {% endblock %}
+
+{% block title %}Contact Us &middot; {{ block.super }}{% endblock %}
+
+{% block breadcrumb-wrapper %}{% endblock %}
+ 
+{% block content %}
+    <footer>
+        <div class="container">
+            <div class="row" align="center">
+                <div class="col-md-9 col-sm-12">
+                    <div class="image-responsive" align="center">
+                        <h2>Locate Unipole on Map</h2>
+                        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5-oBcOBVRhOc4BPGrOrUME-D_rlfyJIg"></script>
+<script type="text/javascript">
+    // variabel global marker
+    var marker;
+    function taruhMarker(peta, posisiTitik) {
+        if (marker) {
+            // pindahkan marker
+            marker.setPosition(posisiTitik);
+        } else {
+            // buat marker baru
+            marker = new google.maps.Marker({
+                position: posisiTitik,
+                map: peta,
+            });
+        }
+        // animasi sekali
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function() {
+            marker.setAnimation(null);
+        }, 750);
+        // kirim nilai koordinat ke input
+        $("input[name=longitude]").val(posisiTitik.lat());
+        $("input[name=latitude]").val(posisiTitik.lng());
+        console.log($("input[name=longitude]").val() + "," + $("input[name=latitude]").val());
+    }
+    function initialize() {
+        var propertiPeta = {
+            center: new google.maps.LatLng(30.355778, 76.456333),
+            zoom: 8,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var peta = new google.maps.Map(document.getElementById("google-maps"), propertiPeta);
+        // even listner ketika peta diklik
+        google.maps.event.addListener(peta, 'click', function(event) {
+            taruhMarker(this, event.latLng);
+        });
+        // marker.setMap(peta);
+    }
+    // event jendela di-load
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<div class="card">
+    <div class="card-content">
+
+        <div class="row">
+                <div class="row">
+                     <div id="google-maps" style="height: 400px; width:100%"></div><br>
+                     <form method="post" >
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {% include 'includes/_field.html' with field=form.name %}
+                            </div>
+                            <div class="form-group">
+                                {% include 'includes/_field.html' with field=form.city %}
+                            </div>
+                            <div class="form-group">
+                                {% include 'includes/_field.html' with field=form.state %}
+                            </div>
+                            <div class="form-group">
+                                {% include 'includes/_field.html' with field=form.comment %}
+                            </div>
+                            <div class="form-group">
+                                {% include 'includes/_field.html' with field=form.latitude %}
+                            </div>
+                            <div class="form-group">
+                                {% include 'includes/_field.html' with field=form.longitude %}
+                            </div>
+                                <input type="submit" name="submit" class="btn btn-submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('select').material_select();
+});
+</script>     
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-5">
+                    <div class="sidebar blog-sidebar" style="padding-left: 20px;">
+                        <br><br>
+                        {% include 'includes/_right_sidebar.html' %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <br>
+{% endblock %}
+
+
+
+

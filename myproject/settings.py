@@ -45,6 +45,14 @@ INSTALLED_APPS = [
     'contact',
     'blog',
     'django_tables2',
+
+    # Vendor apps
+    'bootstrap4',
+
+    # Accounts apps
+    'main',
+    'accounts',
+    'cities',
 ]
 
 DJANGO_TABLES2_TEMPLATE = 'django_tables2/bootstrap-responsive.html'
@@ -102,6 +110,20 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+ENABLE_USER_ACTIVATION = True
+DISABLE_USERNAME = False
+LOGIN_VIA_EMAIL = True
+LOGIN_VIA_EMAIL_OR_USERNAME = False
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = 'accounts:log_in'
+USE_REMEMBER_ME = True
+
+RESTORE_PASSWORD_VIA_EMAIL_OR_USERNAME = False
+ENABLE_ACTIVATION_AFTER_EMAIL_CHANGE = True
+
+SIGN_UP_FIELDS = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+if DISABLE_USERNAME:
+    SIGN_UP_FIELDS = ['first_name', 'last_name', 'email', 'password1', 'password2']
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -116,7 +138,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+ 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
@@ -169,5 +191,5 @@ import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://uuzfqjjtjczuyf:c19a86046cafeaaa23a283b889c98a486fa5c6e02ab3bb923f69e3918f408613@ec2-54-83-55-115.compute-1.amazonaws.com:5432/d2kuqdg02m6cv8',
+        default='postgres://ethyumhvxkbxgg:10209d414c3027b1fd67812b4b529cb2cbec597e790c6702f8cf75265a25330e@ec2-54-221-201-212.compute-1.amazonaws.com:5432/d4ba0i8mc9sgkm',
         conn_max_age=600)}

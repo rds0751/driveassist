@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}<!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
@@ -5,7 +6,7 @@
             <div class="top-bar">
                 <div class="row">
                     <div class="col-md-7 hidden-xs hidden-sm">
-                        <span><i class="glyphicon glyphicon-earphone"></i> +91 080544 47004</span>
+                        <span><i class="glyphicon glyphicon-earphone"></i> (+91)80544-47004</span>
                     </div>
                     <div class="col-md-5 text-right">
                         <div class="top-bar-right">
@@ -54,6 +55,31 @@
                         </li>
                         <li><a href="/blog">Blogs</a></li>
                         <li><a href="/contact">Contact us</a></li>
+                        <li><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" href="#">{% if request.user.is_authenticated %}{{ request.user.first_name }}{% else %} Accounts{% endif %} <span class="caret"></span></a>
+                                   <ul class="dropdown-menu">
+                                        {% if request.user.is_authenticated %}
+                <li>
+                    <a href="{% url 'accounts:change_password' %}">{% trans 'Change password' %}</a>
+                </li>
+                <li>
+                    <a href="{% url 'accounts:change_profile' %}">{% trans 'Change profile' %}</a>
+                </li>
+                <li>
+                    <a href="{% url 'accounts:change_email' %}">{% trans 'Change email' %}</a>
+                </li>
+                <li>
+                    <a href="{% url 'accounts:log_out' %}">{% trans 'Log out' %}</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{% url 'accounts:log_in' %}">{% trans 'Log in' %}</a>
+                </li>
+                <li>
+                    <a href="{% url 'accounts:sign_up' %}">{% trans 'Create an account' %}</a>
+                </li>
+            {% endif %}
+                                   </ul>
+                              </li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div><!--/.container-fluid -->

@@ -191,5 +191,5 @@ import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://ggwjwkzsegyhek:b759af78bf091336d7a89b594b544032471bb3995369941b0335ae0a3ca15bf4@ec2-23-23-173-30.compute-1.amazonaws.com:5432/df93t5ucop8m18',
+        default='postgres://nheovyhzzmupch:495cd13d29878cf8e4c4239be3b98057a5bd6e5e5c47468224e66594eb458a4a@ec2-54-225-242-183.compute-1.amazonaws.com:5432/dcofifp1mn2sdi',
         conn_max_age=600)}

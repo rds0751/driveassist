@@ -1,116 +1,474 @@
 {% extends "base1.html" %}
-{% load static %} 
+{% block meta %}
+    <meta name="title" content="">
+    <meta name="description" content="">
+    <meta charset="keywords" content="">
+    {% endblock %}
 
+{% block title %}Contact Us &middot; {{ block.super }}{% endblock %}
 
-{% block title %}Book a Cab &middot; {{ block.super }}{% endblock %}
-
+{% block breadcrumb-wrapper %}{% endblock %}
+ 
 
 {% block content %}
-    <div id="map"></div>
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-    <script>
-      // Note: This example requires that you consent to location sharing when
-      // prompted by your browser. If you see the error "The Geolocation service
-      // failed.", it means you probably did not give permission for the browser to
-      // locate you.
-      var map, infoWindow;
-      function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 18
-        });
-        infoWindow = new google.maps.InfoWindow;
-
-        // Try HTML5 geolocation.
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            };
-
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Get a MediPink Cab at This or Near-by Locations. <button class="btn btn-success" onClick=initMap()>Book Now ↓</button>');
-            infoWindow.open(map);
-            map.setCenter(pos);
-            document.getElementById('id_latitude').value=pos["lat"];
-            document.getElementById('id_longitude').value=pos["lng"];
-            document.getElementById('id_name').value="{{ request.user.first_name }}";
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
-        }
-      }
-
-      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        infoWindow.setPosition(pos);
-        infoWindow.setContent(browserHasGeolocation ?
-                              'Error: The Geolocation service failed.' :
-                              'Error: Your browser doesn\'t support geolocation.');
-        infoWindow.open(map);
-      }
-
+    <script type="text/javascript" src='/s/js/test-credentials.js'></script>    
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-core.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-service.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-ui.js"></script>
+    <script type="text/javascript" src="https://js.api.here.com/v3/3.1/mapsjs-mapevents.js"></script>
+    <script type="text/javascript">
+        var apikey = 'n7D5362dCgToNjsTG14-VzIkaCJdb3PGVbHojI7qSks';
     </script>
+    <style type="text/css">
+      .directions li span.arrow {
+        display:inline-block;
+        min-width:28px;
+        min-height:28px;
+        background-position:0px;
+        background-image: url("https://heremaps.github.io/maps-api-for-javascript-examples/map-with-route-from-a-to-b/img/arrows.png");
+        position:relative;
+        top:8px;
+      }
+      .directions li span.depart  {
+        background-position:-28px;
+      }
+      .directions li span.rightUTurn  {
+        background-position:-56px;
+      }
+      .directions li span.leftUTurn  {
+        background-position:-84px;
+      }
+      .directions li span.rightFork  {
+        background-position:-112px;
+      }
+      .directions li span.leftFork  {
+        background-position:-140px;
+      }
+      .directions li span.rightMerge  {
+        background-position:-112px;
+      }
+      .directions li span.leftMerge  {
+        background-position:-140px;
+      }
+      .directions li span.slightRightTurn  {
+        background-position:-168px;
+      }
+      .directions li span.slightLeftTurn{
+        background-position:-196px;
+      }
+      .directions li span.rightTurn  {
+        background-position:-224px;
+      }
+      .directions li span.leftTurn{
+        background-position:-252px;
+      }
+      .directions li span.sharpRightTurn  {
+        background-position:-280px;
+      }
+      .directions li span.sharpLeftTurn{
+        background-position:-308px;
+      }
+      .directions li span.rightRoundaboutExit1 {
+        background-position:-616px;
+      }
+      .directions li span.rightRoundaboutExit2 {
+        background-position:-644px;
+      }
+      
+      .directions li span.rightRoundaboutExit3 {
+        background-position:-672px;
+      }
+      
+      .directions li span.rightRoundaboutExit4 {
+        background-position:-700px;
+      }
+      
+      .directions li span.rightRoundaboutPass {
+        background-position:-700px;
+      }
+      
+      .directions li span.rightRoundaboutExit5 {
+        background-position:-728px;
+      }
+      .directions li span.rightRoundaboutExit6 {
+        background-position:-756px;
+      }
+      .directions li span.rightRoundaboutExit7 {
+        background-position:-784px;
+      }
+      .directions li span.rightRoundaboutExit8 {
+        background-position:-812px;
+      }
+      .directions li span.rightRoundaboutExit9 {
+        background-position:-840px;
+      }
+      .directions li span.rightRoundaboutExit10 {
+        background-position:-868px;
+      }
+      .directions li span.rightRoundaboutExit11 {
+        background-position:896px;
+      }
+      .directions li span.rightRoundaboutExit12 {
+        background-position:924px;
+      }
+      .directions li span.leftRoundaboutExit1  {
+        background-position:-952px;
+      }
+      .directions li span.leftRoundaboutExit2  {
+        background-position:-980px;
+      }
+      .directions li span.leftRoundaboutExit3  {
+        background-position:-1008px;
+      }
+      .directions li span.leftRoundaboutExit4  {
+        background-position:-1036px;
+      }
+      .directions li span.leftRoundaboutPass {
+        background-position:1036px;
+      }
+      .directions li span.leftRoundaboutExit5  {
+        background-position:-1064px;
+      }
+      .directions li span.leftRoundaboutExit6  {
+        background-position:-1092px;
+      }
+      .directions li span.leftRoundaboutExit7  {
+        background-position:-1120px;
+      }
+      .directions li span.leftRoundaboutExit8  {
+        background-position:-1148px;
+      }
+      .directions li span.leftRoundaboutExit9  {
+        background-position:-1176px;
+      }
+      .directions li span.leftRoundaboutExit10  {
+        background-position:-1204px;
+      }
+      .directions li span.leftRoundaboutExit11  {
+        background-position:-1232px;
+      }
+      .directions li span.leftRoundaboutExit12  {
+        background-position:-1260px;
+      }
+      .directions li span.arrive  {
+        background-position:-1288px;
+      }
+      .directions li span.leftRamp  {
+        background-position:-392px;
+      }
+      .directions li span.rightRamp  {
+        background-position:-420px;
+      }
+      .directions li span.leftExit  {
+        background-position:-448px;
+      }
+      .directions li span.rightExit  {
+        background-position:-476px;
+      }
+      .directions li span.ferry  {
+        background-position:-1316px;
+      }
+      </style>
+  </head>
+  <body id="markers-on-the-map">
     
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCQYDSI__3GHGCCsyYwcfDJVjQJjOcXIjM&callback=initMap">
+    <div class="page-header">
+        <h1>Map with Driving Route from A to B</h1>
+        <p>Request a driving route from A to B and display it on the map</p>
+    </div>
+    <p>This example calculates the Safest car route from the <b>Location 1</b> <i>{{ way0 }}</i> to <b>Location 2</b> 
+      <i>{{ way1 }}</i>, and displays it on the map.</p>
+      <div class="container">
+    <div class="row">
+    <div id="map" style="height: 500px; width: 700px" class="col-md-6"></div>
+    <div class="col-md-6">
+        <form method="POST" action="/book/">
+            {% csrf_token %}
+            <br>
+            <label>From </label><input type="text" name="way0">
+            <label>To </label><input type="text" name="way1" >
+            <input type="submit" >
+        </form>
+        <a href="tel:7009551598" class="btn danger">SOS</a>
+    </div>
+    </div>
+    </div>
+    <div id="panel"></div>
+    <script type="text/javascript">
+        
+/**
+ * Calculates and displays a car route from the Brandenburg Gate in the centre of Berlin
+ * to Friedrichstraße Railway Station.
+ *
+ * A full list of available request parameters can be found in the Routing API documentation.
+ * see:  http://developer.here.com/rest-apis/documentation/routing/topics/resource-calculate-route.html
+ *
+ * @param   {H.service.Platform} platform    A stub class to access HERE services
+ */
+function calculateRouteFromAtoB (platform) {
+  var router = platform.getRoutingService(),
+    routeRequestParams = {
+      mode: 'fastest;car',
+      representation: 'display',
+      routeattributes : 'waypoints,summary,shape,legs',
+      maneuverattributes: 'direction,action',
+      waypoint0:'{{ way0 }}', 
+      waypoint1:'{{ way1 }}'
+    };
+
+
+  router.calculateRoute(
+    routeRequestParams,
+    onSuccess,
+    onError
+  );
+}
+/**
+ * This function will be called once the Routing REST API provides a response
+ * @param  {Object} result          A JSONP object representing the calculated route
+ *
+ * see: http://developer.here.com/rest-apis/documentation/routing/topics/resource-type-calculate-route.html
+ */
+function onSuccess(result) {
+  var route = result.response.route[0];
+ /*
+  * The styling of the route response on the map is entirely under the developer's control.
+  * A representitive styling can be found the full JS + HTML code of this example
+  * in the functions below:
+  */
+  addRouteShapeToMap(route);
+  addManueversToMap(route);
+
+  addWaypointsToPanel(route.waypoint);
+  addManueversToPanel(route);
+  addSummaryToPanel(route.summary);
+  // ... etc.
+}
+
+/**
+ * This function will be called if a communication error occurs during the JSON-P request
+ * @param  {Object} error  The error message received.
+ */
+function onError(error) {
+  alert('Can\'t reach the remote server');
+}
+
+/**
+ * Boilerplate map initialization code starts below:
+ */
+
+// set up containers for the map  + panel
+var mapContainer = document.getElementById('map'),
+  routeInstructionsContainer = document.getElementById('panel');
+
+//Step 1: initialize communication with the platform
+// In your own code, replace variable window.apikey with your own apikey
+var platform = new H.service.Platform({
+  apikey: window.apikey
+});
+
+var defaultLayers = platform.createDefaultLayers();
+
+//Step 2: initialize a map - this map is centered over Berlin
+var map = new H.Map(mapContainer,
+  defaultLayers.vector.normal.map,{
+  center: {lat:52.5160, lng:13.3779},
+  zoom: 13,
+  pixelRatio: window.devicePixelRatio || 1
+});
+
+
+// add a resize listener to make sure that the map occupies the whole container
+window.addEventListener('resize', () => map.getViewPort().resize());
+
+//Step 3: make the map interactive
+// MapEvents enables the event system
+// Behavior implements default interactions for pan/zoom (also on mobile touch environments)
+var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+// Create the default UI components
+var ui = H.ui.UI.createDefault(map, defaultLayers);
+
+// Hold a reference to any infobubble opened
+var bubble;
+
+/**
+ * Opens/Closes a infobubble
+ * @param  {H.geo.Point} position     The location on the map.
+ * @param  {String} text              The contents of the infobubble.
+ */
+function openBubble(position, text){
+ if(!bubble){
+    bubble =  new H.ui.InfoBubble(
+      position,
+      // The FO property holds the province name.
+      {content: text});
+    ui.addBubble(bubble);
+  } else {
+    bubble.setPosition(position);
+    bubble.setContent(text);
+    bubble.open();
+  }
+}
+
+
+/**
+ * Creates a H.map.Polyline from the shape of the route and adds it to the map.
+ * @param {Object} route A route as received from the H.service.RoutingService
+ */
+function addRouteShapeToMap(route){
+  var lineString = new H.geo.LineString(),
+    routeShape = route.shape,
+    polyline;
+
+  routeShape.forEach(function(point) {
+    var parts = point.split(',');
+    lineString.pushLatLngAlt(parts[0], parts[1]);
+  });
+
+  polyline = new H.map.Polyline(lineString, {
+    style: {
+      lineWidth: 4,
+      strokeColor: 'rgba(0, 128, 255, 0.7)'
+    }
+  });
+  // Add the polyline to the map
+  map.addObject(polyline);
+  // And zoom to its bounding rectangle
+  map.getViewModel().setLookAtData({
+    bounds: polyline.getBoundingBox()
+  });
+}
+
+
+/**
+ * Creates a series of H.map.Marker points from the route and adds them to the map.
+ * @param {Object} route  A route as received from the H.service.RoutingService
+ */
+function addManueversToMap(route){
+  var svgMarkup = '<svg width="18" height="18" ' +
+    'xmlns="http://www.w3.org/2000/svg">' +
+    '<circle cx="8" cy="8" r="8" ' +
+      'fill="#1b468d" stroke="white" stroke-width="1"  />' +
+    '</svg>',
+    dotIcon = new H.map.Icon(svgMarkup, {anchor: {x:8, y:8}}),
+    group = new  H.map.Group(),
+    i,
+    j;
+
+  // Add a marker for each maneuver
+  for (i = 0;  i < route.leg.length; i += 1) {
+    for (j = 0;  j < route.leg[i].maneuver.length; j += 1) {
+      // Get the next maneuver.
+      maneuver = route.leg[i].maneuver[j];
+      // Add a marker to the maneuvers group
+      var marker =  new H.map.Marker({
+        lat: maneuver.position.latitude,
+        lng: maneuver.position.longitude} ,
+        {icon: dotIcon});
+      marker.instruction = maneuver.instruction;
+      group.addObject(marker);
+    }
+  }
+
+  group.addEventListener('tap', function (evt) {
+    map.setCenter(evt.target.getGeometry());
+    openBubble(
+       evt.target.getGeometry(), evt.target.instruction);
+  }, false);
+
+  // Add the maneuvers group to the map
+  map.addObject(group);
+}
+
+
+/**
+ * Creates a series of H.map.Marker points from the route and adds them to the map.
+ * @param {Object} route  A route as received from the H.service.RoutingService
+ */
+function addWaypointsToPanel(waypoints){
+
+
+
+  var nodeH3 = document.createElement('h3'),
+    waypointLabels = [],
+    i;
+
+
+   for (i = 0;  i < waypoints.length; i += 1) {
+    waypointLabels.push(waypoints[i].label)
+   }
+
+   nodeH3.textContent = waypointLabels.join(' - ');
+
+  routeInstructionsContainer.innerHTML = '';
+  routeInstructionsContainer.appendChild(nodeH3);
+}
+
+/**
+ * Creates a series of H.map.Marker points from the route and adds them to the map.
+ * @param {Object} route  A route as received from the H.service.RoutingService
+ */
+function addSummaryToPanel(summary){
+  var summaryDiv = document.createElement('div'),
+   content = '';
+   content += '<b>Total distance</b>: ' + summary.distance  + 'm. <br/>';
+   content += '<b>Travel Time</b>: ' + summary.travelTime.toMMSS() + ' (in current traffic)';
+
+
+  summaryDiv.style.fontSize = 'small';
+  summaryDiv.style.marginLeft ='5%';
+  summaryDiv.style.marginRight ='5%';
+  summaryDiv.innerHTML = content;
+  routeInstructionsContainer.appendChild(summaryDiv);
+}
+
+/**
+ * Creates a series of H.map.Marker points from the route and adds them to the map.
+ * @param {Object} route  A route as received from the H.service.RoutingService
+ */
+function addManueversToPanel(route){
+
+
+
+  var nodeOL = document.createElement('ol'),
+    i,
+    j;
+
+  nodeOL.style.fontSize = 'small';
+  nodeOL.style.marginLeft ='5%';
+  nodeOL.style.marginRight ='5%';
+  nodeOL.className = 'directions';
+
+     // Add a marker for each maneuver
+  for (i = 0;  i < route.leg.length; i += 1) {
+    for (j = 0;  j < route.leg[i].maneuver.length; j += 1) {
+      // Get the next maneuver.
+      maneuver = route.leg[i].maneuver[j];
+
+      var li = document.createElement('li'),
+        spanArrow = document.createElement('span'),
+        spanInstruction = document.createElement('span');
+
+      spanArrow.className = 'arrow '  + maneuver.action;
+      spanInstruction.innerHTML = maneuver.instruction;
+      li.appendChild(spanArrow);
+      li.appendChild(spanInstruction);
+
+      nodeOL.appendChild(li);
+    }
+  }
+
+  routeInstructionsContainer.appendChild(nodeOL);
+}
+
+
+Number.prototype.toMMSS = function () {
+  return  Math.floor(this / 60)  +' minutes '+ (this % 60)  + ' seconds.';
+}
+
+// Now use the map as required...
+calculateRouteFromAtoB (platform);
+
     </script>
-
-
-<nav style="
-width: 100%;
-position: fixed;
-bottom: 0;
-z-index: 10000;
-background-color: #F8F8F8;
-border-top: 2px solid #E7E7E7;
-text-align:center;
-vertical-align: center;
-padding: 10px;">
-<div class="container">
-        <div class="row">
-                <div class="col-md-4 col-sm-4 col-xs-4">
-                    <a href="/"><i class="fa fa-home fa-2x" style="color: blue;"></i><p>Home</p></a>    
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-4">
-                  <form method="post" >
-                            {% csrf_token %}
-                            <div class="form-group">
-                                {% include 'includes/_field.html' with field=form.name %}
-                            </div>
-                            <div class="form-group">
-                                {% include 'includes/_field.html' with field=form.latitude %}
-                            </div>
-                            <div class="form-group">
-                                {% include 'includes/_field.html' with field=form.longitude %}
-                            </div>
-                                <button type="submit" style="border: 0px; background-color: #f8f8f8;"><i class="fa fa-check fa-2x" style="color: green;"></i><p>Book Now</p></button>
-                    </form>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-4">
-                    <a href="/blog"><i class="fa fa-newspaper-o fa-2x" style="color: red;"></i><p>News</p></a>
-                </div>
-
-            </div>
-        </div>
-    </nav>
-
 {% endblock %}
-
-{% block footer %}
-      {% endblock %}

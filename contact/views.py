@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.views.generic.edit import FormView
-from django.urls import reverse
+from django.core.urlresolvers import reverse
 from django.contrib import messages
 
 from .forms import ContactForm

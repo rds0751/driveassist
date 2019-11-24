@@ -7,7 +7,18 @@ def home(request):
     return render(request, 'base1.html')
 
 def book(request):
-    return render(request, 'core/book.html')
+    print("r")
+    if request.method == 'POST':
+        way0 =request.POST['way0']
+        way1=request.POST['way1']
+        print(way0)
+        print(way1)
+        context={
+        'way0': way0,
+        'way1': way1,
+        }
+
+    return render(request, 'core/book.html',context)
 
 def digi(request):
     return render(request, 'core/digi.html')
